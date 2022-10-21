@@ -7,9 +7,9 @@ const roomSchema = new mongoose.Schema({
     trim: true,
     maxLength: [100, "Room name cannot exceed 100 characters"],
   },
-  price: {
+  pricePerNight: {
     type: Number,
-    require: [true, "Please enter room price"],
+    require: [true, "Please enter room price per night"],
     maxLength: [4, "Room name cannot exceed 4 characters"],
     default: 0.0,
   },
@@ -71,9 +71,9 @@ const roomSchema = new mongoose.Schema({
   ],
   category: {
     type: String,
-    require: [true, "Please enter room category"],
+    required: [true, "Please enter room category"],
     enum: {
-      value: ["King", "Single", "Twins"],
+      values: ["King", "Single", "Twins"],
       message: "Please select correct category for room",
     },
   },
@@ -98,6 +98,15 @@ const roomSchema = new mongoose.Schema({
       },
     },
   ],
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-export default mongoose.model.Room || mongoose.model("Room", roomSchema);
+export default mongoose.models.Room || mongoose.model("Room", roomSchema);
