@@ -41,10 +41,11 @@ const newRoom = async (req, res) => {
 const getSingleRoom = async (req, res) => {
   try {
     const room = await Room.findById(req.query.id);
+    
     if (!room) {
       return res.status(404).json({
         success: false,
-        error: "Room not found with this ID",
+        error: "Room not found with this ID"
       });
     }
     res.status(200).json({
