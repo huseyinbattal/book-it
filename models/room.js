@@ -3,31 +3,31 @@ const mongoose = require("mongoose");
 const roomSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: [true, "Please enter room name"],
+    required: [true, "Please enter room name"],
     trim: true,
     maxLength: [100, "Room name cannot exceed 100 characters"],
   },
   pricePerNight: {
     type: Number,
-    require: [true, "Please enter room price per night"],
-    maxLength: [4, "Room name cannot exceed 4 characters"],
-    default: 0.0,
-  },
+    required: [true, 'Please enter room price per night'],
+    maxLength: [4, 'Room name cannot exceed 4 characters'],
+    default: 0.0
+},
   description: {
     type: String,
     require: [true, "Please enter room description"],
   },
   address: {
     type: String,
-    require: [true, "Please enter room address"],
+    required: [true, "Please enter room address"],
   },
   guessCapacity: {
     type: Number,
-    require: [true, "Please enter room guess capacity"],
+    required: [true, "Please enter room guess capacity"],
   },
   numOfBeds: {
     type: Number,
-    require: [true, "Please enter number of beds in room"],
+    required: [true, "Please enter number of beds in room"],
   },
   internet: {
     type: Boolean,
