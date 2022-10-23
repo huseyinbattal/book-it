@@ -10,23 +10,26 @@ class APIFeatures {
           address: {
             $regex: this.queryStr.location,
             $options: "i",
-          },
+          }
         }
-      : {};
+      : {}
 
-    console.log(location);
+    console.log(location)
 
     this.query = this.query.find({ ...location });
     return this;
   }
-    
-    filter() {
-        const queryCopy = { ...this.queryStr }
-        
-        // Remove fields from query
-        const removeFields = ['location'];
-        removeFields.forEach(el => delete queryCopy[el])
-    }
+
+  filter() {
+    const queryCopy = { ...this.queryStr };
+
+    // Remove fields from query
+    const removeFields = ["location"]
+    removeFields.forEach((el) => delete queryCopy[el]);
+
+    this.query = this.query.find(this.queryCopy);
+    return this;
+  }
 }
 
 export default APIFeatures;
