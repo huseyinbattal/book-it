@@ -1,11 +1,16 @@
 import Room from "../models/room";
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors";
+import APIFeatures from "../utils/apiFeatures";
 
 // Get all rooms    =>    /api/rooms
 
 const allRooms = catchAsyncErrors(async (req, res) => {
-  const rooms = await Room.find();
+  const apiFeatures = new APIFeatures(Room.find(), req.query)
+    .search()
+    .filter()
+
+  const rooms = await apiFeatures.query;
 
   res.status(200).json({
     success: true,
@@ -40,7 +45,7 @@ const getSingleRoom = catchAsyncErrors(async (req, res, next) => {
 
 // Update room    =>    /api/rooms/:id
 
-const updateRoom = catchAsyncErrors(async (req, res,next) => {
+const updateRoom = catchAsyncErrors(async (req, res, next) => {
   let room = await Room.findById(req.query.id);
 
   if (!room) {
@@ -61,7 +66,7 @@ const updateRoom = catchAsyncErrors(async (req, res,next) => {
 
 // Delete room    =>    /api/rooms/:id
 
-const deleteRoom = catchAsyncErrors(async (req, res,next) => {
+const deleteRoom = catchAsyncErrors(async (req, res, next) => {
   const room = await Room.findById(req.query.id);
 
   if (!room) {

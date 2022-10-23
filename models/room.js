@@ -21,7 +21,7 @@ const roomSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter room address"],
   },
-  guessCapacity: {
+  guestCapacity: {
     type: Number,
     required: [true, "Please enter room guess capacity"],
   },
