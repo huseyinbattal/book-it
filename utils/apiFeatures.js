@@ -10,11 +10,11 @@ class APIFeatures {
           address: {
             $regex: this.queryStr.location,
             $options: "i",
-          }
+          },
         }
-      : {}
+      : {};
 
-    console.log(location)
+    //console.log(location);
 
     this.query = this.query.find({ ...location });
     return this;
@@ -23,9 +23,13 @@ class APIFeatures {
   filter() {
     const queryCopy = { ...this.queryStr };
 
+    console.log(queryCopy);
+
     // Remove fields from query
-    const removeFields = ["location"]
+    const removeFields = ["location"];
     removeFields.forEach((el) => delete queryCopy[el]);
+
+    console.log(queryCopy);
 
     this.query = this.query.find(this.queryCopy);
     return this;
