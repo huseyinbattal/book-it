@@ -14,7 +14,6 @@ class APIFeatures {
         }
       : {};
 
-    //console.log(location);
 
     this.query = this.query.find({ ...location });
     return this;
@@ -23,16 +22,26 @@ class APIFeatures {
   filter() {
     const queryCopy = { ...this.queryStr };
 
-    console.log(queryCopy);
+    //console.log(queryCopy);
 
     // Remove fields from query
-    const removeFields = ["location"];
+    const removeFields = ["location","page"];
     removeFields.forEach((el) => delete queryCopy[el]);
 
-    console.log(queryCopy);
+    //console.log("queryCopy", queryCopy);
 
-    this.query = this.query.find(this.queryCopy);
+    this.query = this.query.find(queryCopy);
     return this;
+  }
+
+  pagination(resPerPage) {
+    const currentPage = Number(this.queryStr.page) || 1;
+    const skip = resPerPage * (currentPage - 1);
+
+    this.query = this.query.limit(resPerPage).skip(skip)
+    return this;
+      
+      
   }
 }
 
