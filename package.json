@@ -7,14 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seeder":"node utils/seeder"
+    "seeder": "node utils/seeder"
   },
   "dependencies": {
     "mongoose": "^6.6.6",
     "next": "12.3.1",
     "next-connect": "^0.13.0",
+    "next-redux-wrapper": "^8.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.4",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1"
   },
   "devDependencies": {
     "eslint": "8.25.0",
