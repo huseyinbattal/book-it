@@ -9,9 +9,9 @@ const RoomItem = ({ room }) => {
         <Image
           className="card-img-top mx-auto"
           src={room.images[0].url}
-          height={170}
-          width=""
-          alt=""
+          height={200}
+          width={200}
+          alt={room.name}
         />
         <div className="card-body d-flex flex-column">
           <h5 className="card-title">
@@ -31,7 +31,7 @@ const RoomItem = ({ room }) => {
                 style={{ width: `${(room.ratings / 5) * 100}%` }}
               ></div>
             </div>
-            <span id="no_of_reviews">{room.numOfReviews}</span>
+            <span id="no_of_reviews">({room.numOfReviews} Reviews)</span>
           </div>
 
           <button className="btn btn-block view-btn">
