@@ -16,6 +16,7 @@ export const allRoomsReducer = (state = { rooms: [] }, action) => {
           };
       case CLEAR_ERRORS:
           return {
+              ...state,
               error:null
           }
 
