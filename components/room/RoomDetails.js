@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { clearErrors } from "../../redux/actions/roomActions";
 import { Carousel } from "react-bootstrap";
+import RoomFeatures from "./roomFeatures"
 
 const RoomDetails = () => {
   const dispatch = useDispatch();
@@ -60,31 +61,7 @@ const RoomDetails = () => {
              {room.description}
             </p>
 
-            <div className="features mt-5">
-              <h3 className="mb-4">Features:</h3>
-              <div className="room-feature">
-                <i className="fa fa-cog fa-fw fa-users" aria-hidden="true"></i>
-                <p>6 Guests</p>
-              </div>
-
-              <div className="room-feature">
-                <i className="fa fa-cog fa-fw fa-bed" aria-hidden="true"></i>
-                <p>2 Beds</p>
-              </div>
-
-              <div className="room-feature">
-                <i className="fa fa-cog fa-fw fa-bath" aria-hidden="true"></i>
-                <p>2 Baths</p>
-              </div>
-
-              <div className="room-feature">
-                <i
-                  className="fa fa-cog fa-fw fa-cutlery"
-                  aria-hidden="true"
-                ></i>
-                <p>Kitchen</p>
-              </div>
-            </div>
+            <RoomFeatures room={ room} />
           </div>
 
           <div className="col-12 col-md-6 col-lg-4">
