@@ -5,12 +5,12 @@ import Link from "next/link";
 const RoomItem = ({ room }) => {
   return (
     <div className="col-sm-12 col-md-6 col-lg-3 my-3">
-      <div className="card p-2">
+      <div className="card p-1">
         <Image
           className="card-img-top mx-auto"
           src={room.images[0].url}
           height={200}
-          width={200}
+          width={300}
           alt={room.name}
         />
         <div className="card-body d-flex flex-column">
