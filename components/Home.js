@@ -24,8 +24,24 @@ const Home = () => {
     }
   }, []);
 
+
+  let queryParams;
+  if (typeof window !== "undefined") {
+    queryParams=new URLSearchParams(window.location.search)
+  }
+
   const handlePagination = (pageNumber) => {
-    router.push(`/?page=${pageNumber}`);
+    if (queryParams.has('page')) {
+      queryParams.set('page',pageNumber)
+      
+    } else {
+      queryParams.append('page',pageNumber)
+    }
+
+    router.replace({
+      search:queryParams.toString()
+})
+
   };
 
   let count = roomsCount;
