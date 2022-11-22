@@ -1,15 +1,21 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+//import Providers from "next-auth/providers";
+import CredentialsProvider from "next-auth/providers/credentials"
 
 import User from "../../../models/user";
 import dbConnect from "../../../config/dbConnect";
 
 export default NextAuth({
-  session: {
+  /* 
+ session: {
     jwt: true,
   },
+*/
+  session: {
+    strategy: "jwt",
+  },
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
       async authorize(credentials) {
         dbConnect();
 
@@ -39,11 +45,11 @@ export default NextAuth({
   ],
 
   callbacks: {
-    jwt: async (token, user) => {
+    jwt: async ({ token, user }) => {
       user && (token.user = user);
       return Promise.resolve(token);
     },
-    session: async (session, user) => {
+    session: async ({ session, user }) => {
       session.user = user.user;
       return Promise.resolve(session);
     },
