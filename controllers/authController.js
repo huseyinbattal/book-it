@@ -1,4 +1,5 @@
 import User from "../models/user";
+import cloudinary from 'cloudinary'
 
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors";

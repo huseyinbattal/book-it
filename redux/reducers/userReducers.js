@@ -1,11 +1,14 @@
 import {
   REGISTER_USER_REQUEST,
+  REGISTER_USER_SUCCESS,
   REGISTER_USER_FAIL,
+
   CLEAR_ERRORS,
+  
 } from "../constants/userConstants";
 
 // Auth reducer
-export const authReducer = (state = { loading: true, user: null }, action) => {
+export const authReducer = (state = { user: null }, action) => {
   switch (action.type) {
     case REGISTER_USER_REQUEST:
       return {

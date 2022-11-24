@@ -67,14 +67,14 @@ const Login = () => {
               id="login_button"
               type="submit"
               class="btn btn-block py-3"
-            disabled={loading?true:false}
+              disabled={loading ? true : false}
             >
-              {loading?<ButtonLoader/>:"LOGIN"}
+              {loading ? <ButtonLoader /> : "LOGIN"}
             </button>
 
-            <a href="#" class="float-right mt-3">
+            <Link href="/register" class="float-right mt-3">
               New User?
-            </a>
+            </Link>
           </form>
         </div>
       </div>
