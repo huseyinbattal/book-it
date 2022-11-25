@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../../redux/actions/userActions";
+import {signOut} from "next-auth/react"
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,10 @@ const Header = () => {
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
+
+  const logoutHandler = () => {
+    signOut();
+  }
 
   return (
     <nav className="navbar row justify-content-center sticky-top">
@@ -58,7 +63,7 @@ const Header = () => {
                   <a className="dropdown-item">Profile</a>
                 </Link>
                 <Link href="/">
-                  <a className="dropdown-item">Log Out</a>
+                  <a onClick={logoutHandler} className="dropdown-item text-danger">Logout</a>
                 </Link>
               </div>
             </div>
