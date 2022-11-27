@@ -71,6 +71,7 @@ const updateProfile = catchAsyncErrors(async (req, res) => {
       width: "150",
       crop: "scale",
     });
+
     user.avatar = {
       public_id: result.public_id,
       url: result.secure_url,
@@ -85,3 +86,6 @@ const updateProfile = catchAsyncErrors(async (req, res) => {
 });
 
 export { registerUser, currentUserProfile, updateProfile };
+
+
+
