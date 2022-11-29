@@ -1,11 +1,13 @@
 import React from "react";
 import { getSession } from "next-auth/react";
+import Profile from "../../components/user/Profile";
+import Layout from "../../components/layout/Layout";
 
 const UpdateProfilePage = () => {
   return (
-    <div>
-      <h1>User Profile</h1>
-    </div>
+    <Layout title="Update Profile">
+      <Profile />
+    </Layout>
   );
 };
 
@@ -22,10 +24,8 @@ export async function getServerSideProps(context) {
   }
 
   return {
-      props: { session }
+    props: { session },
   };
 }
-
-
 
 export default UpdateProfilePage;
