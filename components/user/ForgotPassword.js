@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import ButtonLoader from "../layout/ButtonLoader";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, forgotPassword} from "../../redux/actions/userActions";
+import { clearErrors, forgotPassword } from "../../redux/actions/userActions";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

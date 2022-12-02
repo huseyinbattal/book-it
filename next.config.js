@@ -8,8 +8,8 @@ module.exports = {
 
     SMTP_HOST: "smtp.mailtrap.io",
     SMTP_PORT: "2525",
-    SMTP_USER: "96854fafa5ff3a",
-    SMTP_PASSWORD: "9492ecf25cc89e",
+    SMTP_USER: "c444c97d14bd8c",
+    SMTP_PASSWORD: "47301b62b9d1ae",
     SMTP_FROM_NAME: "BookIT",
     SMTP_FROM_EMAIL: "noreply@bookit.com",
 

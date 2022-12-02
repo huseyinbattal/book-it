@@ -2,7 +2,6 @@ import User from "../models/user";
 import cloudinary from "cloudinary";
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors";
-import APIFeatures from "../utils/apiFeatures";
 import absoluteUrl from 'next-absolute-url'
 import sendEmail from "../utils/sendEmail"
 
@@ -91,6 +90,7 @@ const updateProfile = catchAsyncErrors(async (req, res) => {
 const forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
+
   if (!user) {
     return next(new ErrorHandler("User not found with this email", 404));
   }
@@ -128,7 +128,8 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
     await user.save({ validateBeforeSave: false })
 
     return next(new ErrorHandler(error.message, 500))
-}
+  }
+  
 
 });
 
