@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, forgotPassword } from "../../redux/actions/userActions";
 
 const ForgotPassword = () => {
+  
   const [email, setEmail] = useState("");
 
   const dispatch = useDispatch();
