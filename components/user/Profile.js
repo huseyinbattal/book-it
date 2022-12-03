@@ -24,7 +24,8 @@ const Profile = () => {
     "/images/default_avatar.jpg"
   );
 
-  const { user:loadedUser, loading } = useSelector((state) => state.auth);
+  const { user: loadedUser, loading } = useSelector((state) => state.loadedUser);
+  
   const {
     error,
     isUpdated,
