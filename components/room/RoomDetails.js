@@ -8,10 +8,12 @@ import { Carousel } from "react-bootstrap";
 import RoomFeatures from "./roomFeatures";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const RoomDetails = () => {
   const [checkInDate, setCheckInDate] = useState();
   const [checkOutDate, setCheckOutDate] = useState();
+  const [daysOfStay, setDaysOfStay] = useState();
 
   const dispatch = useDispatch();
 
@@ -23,7 +25,10 @@ const RoomDetails = () => {
     setCheckOutDate(checkOutDate);
 
     if (checkInDate && checkOutDate) {
-      console.log(checkInDate.toISOString(), checkOutDate.toISOString());
+      // Calculate days of stay
+      const days = Math.floor(((new Date(checkOutDate) - new Date(checkInDate)) / 86400000) + 1)
+      
+      setDaysOfStay(days)
     }
   };
 

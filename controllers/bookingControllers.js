@@ -2,28 +2,34 @@ import Booking from "../models/booking";
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors";
 
-// Create new booking   =>    /api/auth/register
-const registerUser = catchAsyncErrors(async (req, res) => {
-  const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: "bookit/avatar",
-    width: "150",
-    crop: "scale",
-  });
+// Create new booking   =>    /api/booking
+const newBooking = catchAsyncErrors(async (req, res) => {
+  const {
+    room,
+    checkInDate,
+    checkOutDate,
+    daysOfStay,
+    amountPaid,
+    paymentInfo,
+  } = req.body;
 
-  const { name, email, password } = req.body;
-
-  const user = await User.create({
-    name,
-    email,
-    password,
-    avatar: {
-      public_id: result.public_id,
-      url: result.secure_url,
-    },
+  const booking = await Booking.create({
+    room,
+    user: req.user._id,
+    checkInDate,
+    checkOutDate,
+    daysOfStay,
+    amountPaid,
+    paymentInfo,
   });
 
   res.status(200).json({
     success: true,
-    message: "Account Registered successfuly",
+    booking,
   });
 });
+
+
+export {
+    newBooking
+}
