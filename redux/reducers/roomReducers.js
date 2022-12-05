@@ -32,7 +32,7 @@ export const allRoomsReducer = (state = { rooms: [] }, action) => {
 };
 
 // Room details reducer
-export const roomDetailsReducer = (state = { room: {} }, action) => {
+export const roomDetailsReducer = (state = { room: {},error:null }, action) => {
   switch (action.type) {
     case ROOM_DETAILS_SUCCESS:
       return {

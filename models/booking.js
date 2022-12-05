@@ -13,6 +13,7 @@ const bookingSchema = new mongoose.Schema({
   },
   checkInDate: {
     type: Date,
+    default:Date.now,
     required: true,
   },
   checkOutDate: {
@@ -39,7 +40,9 @@ const bookingSchema = new mongoose.Schema({
     },
     paidAt: {
         type: Date,
-        required:true,
+      required: true,
+      default:Date.now
+        
     },
     createdAt: {
         type: Date,
