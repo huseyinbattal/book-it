@@ -25,6 +25,7 @@ const newBooking = catchAsyncErrors(async (req, res) => {
     daysOfStay,
     amountPaid,
     paymentInfo,
+    paidAt: Date.now(),
   });
 
   res.status(200).json({
@@ -79,15 +80,23 @@ const checkBookedDatesOfRoom = catchAsyncErrors(async (req, res) => {
 
   let bookedDates = [];
 
+  let timeDifference = moment().utcOffset() / 60;
+  console.log(timeDifference);
+
   bookings.forEach((booking) => {
-    const range = moment.range(
-      moment(booking.checkInDate),
-      moment(booking.checkOutDate)
+    const checkInDate = moment(booking.checkInDate).add(
+      timeDifference,
+      "hours"
     );
+    const checkOutDate = moment(booking.checkOutDate).add(
+      timeDifference,
+      "hours"
+    );
+
+    const range = moment.range(moment(checkInDate), moment(checkOutDate));
 
     const dates = Array.from(range.by("day"));
     bookedDates = bookedDates.concat(dates);
-
   });
 
   res.status(200).json({
@@ -96,8 +105,4 @@ const checkBookedDatesOfRoom = catchAsyncErrors(async (req, res) => {
   });
 });
 
-export {
-  newBooking,
-  checkRoomBookingsAvailability,
-  checkBookedDatesOfRoom,
-};
+export { newBooking, checkRoomBookingsAvailability, checkBookedDatesOfRoom };
