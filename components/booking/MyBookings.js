@@ -8,7 +8,7 @@ import { clearErrors } from "../../redux/actions/bookingActions";
 const MyBookings = () => {
   const dispatch = useDispatch();
   const { bookings, error } = useSelector((state) => state.bookings);
-
+console.log(bookings);
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -28,11 +28,11 @@ const MyBookings = () => {
       rows: [],
     };
       
-      bookings && bookings.forEeach(booking => {
+      bookings && bookings.forEach(booking => {
           data.rows.push({
               id: booking._id,
-              checkIn:new Date(booking.checkInDate).toLocaleString("en-US"),
-              checkOut: new Date(booking.checkOutDate).toLocaleString("en-US"),
+              checkIn:new Date(booking.checkInDate).toLocaleString("tr-TR"),
+              checkOut: new Date(booking.checkOutDate).toLocaleString("tr-TR"),
               amount: `$${booking.amountPaid}`,
               actions:
                   <>
@@ -57,7 +57,9 @@ const MyBookings = () => {
             <MDBDataTable
                 data={setBookings()}
                 className="px-3"
-                
+                bordered
+                striped
+                hover
             />
       </div>
   )
