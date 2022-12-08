@@ -85,15 +85,17 @@ export const getBookingDetails = (authCookie,req,id) => async (dispatch) => {
         cookie:authCookie
       }
     }
-    const { data } = await axios.get(`${origin}/api/bookings/${id}`,config);
+    const { data } = await axios.get(`${origin}/api/bookings/${id}`, config);
+    
+   
 
     dispatch({
-      type: MY_BOOKINGS_SUCCESS,
-      payload: data.bookings,
+      type: BOOKING_DETAILS_SUCCESS,
+      payload: data.booking,
     });
   } catch (error) {
     dispatch({
-      type: MY_BOOKINGS_FAIL,
+      type: BOOKING_DETAILS_FAIL,
       payload: error.response.data.message,
     });
   }

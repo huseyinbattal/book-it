@@ -101,7 +101,6 @@ export const bookingsReducer = (state = { bookings: [] }, action) => {
   }
 };
 
-
 export const bookingDetailsReducer = (state = { booking: {} }, action) => {
   switch (action.type) {
     case BOOKING_DETAILS_SUCCESS:
