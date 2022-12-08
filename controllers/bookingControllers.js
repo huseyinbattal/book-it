@@ -116,7 +116,7 @@ const myBookings = catchAsyncErrors(async (req, res) => {
 });
 
 // Get booking details  =>    /api/bookings/:id
-const getBookingsDetails = catchAsyncErrors(async (req, res) => {
+const getBookingDetails = catchAsyncErrors(async (req, res) => {
   const booking = await Booking.findById(req.query.id)
     .populate({
       path: "room",
@@ -138,5 +138,5 @@ export {
   checkRoomBookingsAvailability,
   checkBookedDatesOfRoom,
   myBookings,
-  getBookingsDetails,
+  getBookingDetails,
 };
