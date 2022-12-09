@@ -2,6 +2,9 @@ module.exports = {
   env: {
     DB_LOCAL_URI: "mongodb://localhost:27017/bookit",
 
+    STRIPE_API_KEY: "pk_test_51MDA14Dwu9Z048lip514GJOHQQaoSHyzdJP6xLHHj6mHQszKt9f1B39eCBRozhDbotpFmfL9GuNaiN96Hvk2kZBi00TKYsfoAx",
+    STRIPE_SECRET_KEY:"sk_test_51MDA14Dwu9Z048licTeGh2Z4n6IRzxhuyzubDySZNSWDHaZAYZPXEBuMsc4tMIsZKkf4Jz5QYeShhciCbrjC0XR3008oXqAdck",
+
     CLOUDINARY_CLOUD_NAME: "dxqfwqg24",
     CLOUDINARY_API_KEY: "565552225744115",
     CLOUDINARY_API_SECRET: "6YP0Men7e56mCq-pg8uLrjs9ugI",
