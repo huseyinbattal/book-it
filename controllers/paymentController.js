@@ -19,14 +19,28 @@ const stripeCheckoutSession = catchAsyncErrors(async (req, res) => {
 
   // Create stripe checkout session
 
-    
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
+    mode: "payment",
     success_url: `${origin}/bookings/me`,
     cancel_url: `${origin}/room/${room._id}`,
     customer_email: req.user.email,
     client_reference_id: req.query.roomId,
     metadata: { checkInDate, checkOutDate, daysOfStay },
+    line_items: [
+      {
+        price_data: {
+          currency: 'usd',
+          unit_amount:100,
+          product_data: {
+            name: room.name,
+          images: [`${room.images[0].url}`],
+
+          }
+        },
+          quantity: 1
+      }
+  ]
 
   });
 
