@@ -8,15 +8,20 @@ import { Carousel } from "react-bootstrap";
 import RoomFeatures from "./roomFeatures";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
 import { useRouter } from "next/router";
-import { checkBooking ,getBookedDates} from "../../redux/actions/bookingActions";
+import {
+  checkBooking,
+  getBookedDates,
+} from "../../redux/actions/bookingActions";
 import { CHECK_BOOKING_RESET } from "../../redux/constants/bookingConstants";
+import getStripe from "../../utils/getStripe";
+import axios from "axios";
 
 const RoomDetails = () => {
   const [checkInDate, setCheckInDate] = useState();
   const [checkOutDate, setCheckOutDate] = useState();
   const [daysOfStay, setDaysOfStay] = useState();
+  const [paymentLoading, setPaymentLoading] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -24,14 +29,15 @@ const RoomDetails = () => {
   const { dates } = useSelector((state) => state.bookedDates);
   const { user } = useSelector((state) => state.loadedUser);
   const { room, error } = useSelector((state) => state.roomDetails);
-  const { available, loading: bookingLoading } = useSelector((state) => state.checkBooking
+  const { available, loading: bookingLoading } = useSelector(
+    (state) => state.checkBooking
   );
 
   const excludedDate = [];
 
-  dates.forEach(date => {
-    excludedDate.push(new Date(date))
-  })
+  dates.forEach((date) => {
+    excludedDate.push(new Date(date));
+  });
 
   const onChange = (dates) => {
     const [checkInDate, checkOutDate] = dates;
@@ -81,14 +87,38 @@ const RoomDetails = () => {
     }
   };
 
+  const bookRoom = async (id, pricePerNight) => {
+    setPaymentLoading(true);
+
+    const amount = pricePerNight * daysOfStay;
+
+    try {
+      const link = `/api/checkout_session/${id}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`;
+
+      const { data } = await axios.get(link, { params: { amount } });
+
+      const stripe = await getStripe();
+
+      //Redirect to checkout
+      stripe.redirectToCheckout({ sessionId: data.id });
+      setPaymentLoading(false);
+    } catch (error) {
+      setPaymentLoading(false);
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
+    dispatch(getBookedDates(id));
 
-    dispatch(getBookedDates(id))
+    toast.error(error);
+    dispatch(clearErrors());
 
-      toast.error(error);
-      dispatch(clearErrors());
-    
-  }, [dispatch,id]);
+    return () => {
+      dispatch({ type: CHECK_BOOKING_RESET });
+    };
+  }, [dispatch, id]);
   return (
     <>
       <Head>
@@ -174,9 +204,10 @@ const RoomDetails = () => {
               {available && user && (
                 <button
                   className="btn btn-block py-3 booking-btn"
-                  onClick={newBookingHandler}
+                  onClick={() => bookRoom(room._id, room.pricePerNight)}
+                  disabled={bookingLoading || paymentLoading ? true : false}
                 >
-                  Pay
+                  Pay - ${daysOfStay*room.pricePerNight}
                 </button>
               )}
             </div>
