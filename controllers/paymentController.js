@@ -18,11 +18,7 @@ const stripeCheckoutSession = catchAsyncErrors(async (req, res) => {
   const { origin } = absoluteUrl(req);
 
   // Create stripe checkout session
-  const price = await stripe.prices.create({
-    product: req.query.roomId,
-    unit_amount: 2000,
-    currency: 'usd',
-  });
+
     
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
