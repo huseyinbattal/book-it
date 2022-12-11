@@ -51,7 +51,7 @@ const webhookCheckout = catchAsyncErrors(async (req, res) => {
   const rawBody = await getRawBody(req);
 
   try {
-    const signature = req.header["stripe-signature"];
+    const signature = req.headers["stripe-signature"];
 
     const event = stripe.webhooks.constructEvent(
       rawBody,
