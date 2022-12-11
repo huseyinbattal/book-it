@@ -3,6 +3,7 @@ import User from "../models/user";
 import Booking from "../models/booking";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors";
 import absoluteUrl from "next-absolute-url";
+import getRawBody from "raw-body";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -43,6 +44,23 @@ const stripeCheckoutSession = catchAsyncErrors(async (req, res) => {
   });
 
   res.status(200).json(session);
+});
+
+// Create new booking after payment    =>    /api/webhook
+const webhookCheckout = catchAsyncErrors(async (req, res) => {
+
+ try {
+  
+   const signature = req.header["stripe-signature"];
+
+   const event=stripe.webhooks.constructEvent()
+   
+   
+ } catch (error) {
+   
+   console.log("Error in Stripe Checkout Payment =>", error);
+   
+ }
 });
 
 export { stripeCheckoutSession };
