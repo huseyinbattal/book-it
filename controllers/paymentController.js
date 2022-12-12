@@ -94,7 +94,4 @@ const webhookCheckout = catchAsyncErrors(async (req, res) => {
   }
 });
 
-export {
-  stripeCheckoutSession,
-  webhookCheckout,
-};
+export { stripeCheckoutSession, webhookCheckout };

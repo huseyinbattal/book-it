@@ -6,9 +6,6 @@ import APIFeatures from "../utils/apiFeatures";
 // Get all rooms    =>    /api/rooms
 
 const allRooms = catchAsyncErrors(async (req, res) => {
-
-
-
   const resPerPage = 4;
   const roomsCount = await Room.countDocuments();
 
@@ -20,8 +17,7 @@ const allRooms = catchAsyncErrors(async (req, res) => {
   apiFeatures.pagination(resPerPage);
   rooms = await apiFeatures.query.clone();
 
- // console.log(rooms);
-
+  // console.log(rooms);
 
   res.status(200).json({
     success: true,
@@ -78,7 +74,6 @@ const updateRoom = catchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete room    =>    /api/rooms/:id
-
 const deleteRoom = catchAsyncErrors(async (req, res, next) => {
   const room = await Room.findById(req.query.id);
 
@@ -87,6 +82,7 @@ const deleteRoom = catchAsyncErrors(async (req, res, next) => {
   }
 
   await room.remove();
+  2;
 
   res.status(200).json({
     success: true,
@@ -94,4 +90,44 @@ const deleteRoom = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-export { allRooms, newRoom, getSingleRoom, updateRoom, deleteRoom };
+// Create a new review    =>    /api/reviews
+const createRoomReview = catchAsyncErrors(async (req, res, next) => {
+  const { rating, comment, roomId } = req.body;
+
+  const review = {
+    user: req.user._id,
+    name: req.user.name,
+    rating: Number(rating),
+    comment,
+  };
+
+  const room = await Room.findById(roomId);
+
+  const isReviewed = room.reviews.find(
+    (r) => r.user.toString() === req.user._id.toString()
+  );
+
+  if (isReviewed) {
+    room.reviews.forEach((review) => {
+      if (review.user.toString() === req.user._id.toString()) {
+        review.comment = comment;
+        review.rating = rating;
+      }
+    });
+  } else {
+    room.reviews.push(review);
+    room.numOfReviews = room.reviews.length;
+  }
+
+  room.ratings =
+    room.reviews.reduce((acc, item) => item.rating + acc, 0) /
+    room.reviews.length;
+  
+  await room.save({validateBeforeSave:false})
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+export { allRooms, newRoom, getSingleRoom, updateRoom, deleteRoom,createRoomReview };
