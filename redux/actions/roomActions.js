@@ -6,35 +6,40 @@ import {
   ALL_ROOMS_FAIL,
   ROOM_DETAILS_SUCCESS,
   ROOM_DETAILS_FAIL,
+  NEW_REVIEW_REQUEST,
+  NEW_REVIEW_SUCCESS,
+  NEW_REVIEW_RESET,
+  NEW_REVIEW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/roomConstants";
 
 // Get all rooms
-export const getRooms = (req,currentPage=1,location="",guests,category) => async (dispatch) => {
-  try {
-    const { origin } = absoluteUrl(req);
+export const getRooms =
+  (req, currentPage = 1, location = "", guests, category) =>
+  async (dispatch) => {
+    try {
+      const { origin } = absoluteUrl(req);
 
-    let link = `${origin}/api/rooms?page=${currentPage}&location=${location}`
-    
-    if (guests) link = link.concat(`&guestCapacity=${guests}`)
-    if(category) link=link.concat(`&category=${category}`)
-    
+      let link = `${origin}/api/rooms?page=${currentPage}&location=${location}`;
 
-    const { data } = await axios.get(link);
-    dispatch({
-      type: ALL_ROOMS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_ROOMS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+      if (guests) link = link.concat(`&guestCapacity=${guests}`);
+      if (category) link = link.concat(`&category=${category}`);
+
+      const { data } = await axios.get(link);
+      dispatch({
+        type: ALL_ROOMS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_ROOMS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 // Get room details
-export const getRoomDetails = (req,id) => async (dispatch) => {
+export const getRoomDetails = (req, id) => async (dispatch) => {
   try {
     const { origin } = absoluteUrl(req);
     const { data } = await axios.get(`${origin}/api/rooms/${id}`);
@@ -45,6 +50,33 @@ export const getRoomDetails = (req,id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROOM_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const newReview = (reviewData) => async (dispatch) => {
+
+  try {
+
+    dispatch({ type: NEW_REVIEW_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.put(`/api/reviews`, reviewData, config);
+
+    dispatch({
+      type: NEW_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+
+  } catch (error) {
+    dispatch({
+      type: NEW_REVIEW_FAIL,
       payload: error.response.data.message,
     });
   }
