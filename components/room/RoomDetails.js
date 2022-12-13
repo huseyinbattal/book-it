@@ -16,6 +16,7 @@ import {
 import { CHECK_BOOKING_RESET } from "../../redux/constants/bookingConstants";
 import getStripe from "../../utils/getStripe";
 import axios from "axios";
+import NewReview from "../review/NewReview";
 
 const RoomDetails = () => {
   const [checkInDate, setCheckInDate] = useState();
@@ -207,12 +208,14 @@ const RoomDetails = () => {
                   onClick={() => bookRoom(room._id, room.pricePerNight)}
                   disabled={bookingLoading || paymentLoading ? true : false}
                 >
-                  Pay - ${daysOfStay*room.pricePerNight}
+                  Pay - ${daysOfStay * room.pricePerNight}
                 </button>
               )}
             </div>
           </div>
         </div>
+
+        <NewReview />
 
         <div className="reviews w-75">
           <h3>Reviews:</h3>
