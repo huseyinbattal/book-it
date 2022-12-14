@@ -43,36 +43,32 @@ const NewReview = () => {
     stars.forEach((star, index) => {
       star.starValue = index + 1;
 
-          ["click", "mouseover", "mouseout"].forEach(function (e) {
-      star.addEventListener(e,showRatings)
-    })
-    })
-function showRatings(e) {
-  stars.forEach((star, index) => {
-    if (e.type === "click") {
-
-      if (index < this.starValue) {
-        star.classList.add("red")
-            setRating(this.startValue)
-      } else {
-        star.classList.remove("red")
-      }
+      ["click", "mouseover", "mouseout"].forEach(function (e) {
+        star.addEventListener(e, showRatings);
+      });
+    });
+    function showRatings(e) {
+      stars.forEach((star, index) => {
+        if (e.type === "click") {
+          if (index < this.starValue) {
+            star.classList.add("red");
+            setRating(this.startValue);
+          } else {
+            star.classList.remove("red");
+          }
+        }
+        if (e.type === "mouseover") {
+          if (index < this.starValue) {
+            star.classList.add("light-red");
+          } else {
+            star.classList.remove("light-red");
+          }
+        }
+        if (e.type === "mouseout") {
+          star.classList.remove("light-red");
+        }
+      });
     }
-    if (e.type === "mouseover") {
-      if (index < this.starValue) {
-        star.classList.add("light-red")
-       
-      } else {
-        star.classList.remove("light-red")
-      }
-    }
-    if (e.type === "mouseout") {
-      star.classList.remove("light-red")
-    }
-  })
-}
-
-
   }
 
   return (
