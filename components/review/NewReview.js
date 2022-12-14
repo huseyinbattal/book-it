@@ -4,13 +4,13 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { newReview, clearErrors } from "../../redux/actions/roomActions";
 import { NEW_REVIEW_RESET } from "../../redux/constants/roomConstants";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const NewReview = () => {
-  const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
+  console.log("Rating=>", rating);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -46,7 +46,6 @@ const NewReview = () => {
   };
 
   function setUserRatings() {
-    setShow(true)
     const stars = document.querySelectorAll(".star");
     stars.forEach((star, index) => {
       star.starValue = index + 1;
@@ -60,7 +59,8 @@ const NewReview = () => {
         if (e.type === "click") {
           if (index < this.starValue) {
             star.classList.add("red");
-            setRating(this.startValue);
+            setRating(this.starValue);
+            console.log(this.starValue);
           } else {
             star.classList.remove("red");
           }
@@ -81,59 +81,54 @@ const NewReview = () => {
 
   return (
     <>
-      <button
-        id="review_btn"
-        type="button"
-        className="btn btn-primary mt-4 mb-5"
-        data-toggle="modal"
-        data-target="#ratingModal"
-        onClick={setUserRatings}
-      >
+      <Button variant="danger" className=" mt-4 mb-5" onClick={handleShow}>
         Submit Your Review
-      </button>
+      </Button>
 
       <div>
-      <Modal show={show} onHide={handleClose}>
+        <Modal
+          aria-label="ratingModal"
+          show={show}
+          onHide={handleClose}
+          onShow={setUserRatings}
+        >
           <Modal.Header closeButton>
-          <Modal.Title>Submit Review</Modal.Title>
-        </Modal.Header>
+            <Modal.Title>Submit Review</Modal.Title>
+          </Modal.Header>
           <Modal.Body>
-          <ul className="stars">
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-                <li className="star">
-                  <i className="fa fa-star"></i>
-                </li>
-              </ul>
+            <ul className="stars">
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+              <li className="star">
+                <i className="fa fa-star"></i>
+              </li>
+            </ul>
 
-              <textarea
-                name="review"
-                id="review"
-                className="form-control mt-3"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              ></textarea>
-        </Modal.Body>
-        <Modal.Footer>
-            <Button
-              variant="danger"
-              onClick={submitHandler}
-            >
-            Submit
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    
+            <textarea
+              name="review"
+              id="review"
+              className="form-control mt-3"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            ></textarea>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="danger" onClick={submitHandler}>
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         {/* <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
