@@ -43,7 +43,9 @@ const NewReview = () => {
 
     dispatch(newReview(reviewData));
     handleClose();
+ 
   };
+
 
   function setUserRatings() {
     const stars = document.querySelectorAll(".star");
