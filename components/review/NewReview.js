@@ -4,10 +4,16 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { newReview, clearErrors } from "../../redux/actions/roomActions";
 import { NEW_REVIEW_RESET } from "../../redux/constants/roomConstants";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 
 const NewReview = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -36,9 +42,11 @@ const NewReview = () => {
     };
 
     dispatch(newReview(reviewData));
+    handleClose();
   };
 
   function setUserRatings() {
+    setShow(true)
     const stars = document.querySelectorAll(".star");
     stars.forEach((star, index) => {
       star.starValue = index + 1;
@@ -84,15 +92,49 @@ const NewReview = () => {
         Submit Your Review
       </button>
 
-      <div
-        className="modal fade"
-        id="ratingModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="ratingModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog" role="document">
+      <div>
+      <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+          <Modal.Title>Submit Review</Modal.Title>
+        </Modal.Header>
+          <Modal.Body>
+          <ul className="stars">
+                <li className="star">
+                  <i className="fa fa-star"></i>
+                </li>
+                <li className="star">
+                  <i className="fa fa-star"></i>
+                </li>
+                <li className="star">
+                  <i className="fa fa-star"></i>
+                </li>
+                <li className="star">
+                  <i className="fa fa-star"></i>
+                </li>
+                <li className="star">
+                  <i className="fa fa-star"></i>
+                </li>
+              </ul>
+
+              <textarea
+                name="review"
+                id="review"
+                className="form-control mt-3"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+        </Modal.Body>
+        <Modal.Footer>
+            <Button
+              variant="danger"
+              onClick={submitHandler}
+            >
+            Submit
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    
+        {/* <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="ratingModalLabel">
@@ -144,7 +186,7 @@ const NewReview = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
