@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { newReview, clearErrors } from "../../redux/actions/roomActions";
+import {
+  newReview,
+  clearErrors,
+  checkReviewAvailability,
+} from "../../redux/actions/roomActions";
 import { NEW_REVIEW_RESET } from "../../redux/constants/roomConstants";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -19,10 +23,14 @@ const NewReview = () => {
   const router = useRouter();
 
   const { error, success } = useSelector((state) => state.newReview);
+  const { reviewAvailable } = useSelector((state) => state.checkReview);
 
   const { id } = router.query;
 
   useEffect(() => {
+    if (id !== undefined) {
+      dispatch(checkReviewAvailability(id));
+    }
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
@@ -32,7 +40,7 @@ const NewReview = () => {
       toast.success("Review is posted.");
       dispatch({ type: NEW_REVIEW_RESET });
     }
-  }, [dispatch, success, error]);
+  }, [dispatch, success, error, id]);
 
   const submitHandler = () => {
     const reviewData = {
@@ -43,9 +51,7 @@ const NewReview = () => {
 
     dispatch(newReview(reviewData));
     handleClose();
- 
   };
-
 
   function setUserRatings() {
     const stars = document.querySelectorAll(".star");
@@ -83,9 +89,11 @@ const NewReview = () => {
 
   return (
     <>
-      <Button variant="danger" className=" mt-4 mb-5" onClick={handleShow}>
-        Submit Your Review
-      </Button>
+      {reviewAvailable && (
+        <Button variant="danger" className=" mt-4 mb-5" onClick={handleShow}>
+          Submit Your Review
+        </Button>
+      )}
 
       <div>
         <Modal
