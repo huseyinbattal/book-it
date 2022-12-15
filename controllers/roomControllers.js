@@ -2,6 +2,7 @@ import Room from "../models/room";
 import ErrorHandler from "../utils/errorHandler";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors";
 import APIFeatures from "../utils/apiFeatures";
+import Booking from "../models/booking";
 
 // Get all rooms    =>    /api/rooms
 
@@ -122,12 +123,35 @@ const createRoomReview = catchAsyncErrors(async (req, res, next) => {
   room.ratings =
     room.reviews.reduce((acc, item) => item.rating + acc, 0) /
     room.reviews.length;
-  
-  await room.save({validateBeforeSave:false})
+
+  await room.save({ validateBeforeSave: false });
 
   res.status(200).json({
     success: true,
   });
 });
 
-export { allRooms, newRoom, getSingleRoom, updateRoom, deleteRoom,createRoomReview };
+// Check Review Availability    =>    /api/reviews/check_review_availability
+const checkReviewAvailability = catchAsyncErrors(async (req, res, next) => {
+  const { roomId } = req.query;
+
+  const bookings = await Booking.find({ user: req.user._id, room: roomId });
+
+  let isReviewAvailable = false;
+
+  if (bookings.length > 0) isReviewAvailable = true;
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+export {
+  allRooms,
+  newRoom,
+  getSingleRoom,
+  updateRoom,
+  deleteRoom,
+  createRoomReview,
+  checkReviewAvailability,
+};
