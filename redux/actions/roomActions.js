@@ -63,7 +63,7 @@ export const getRoomDetails = (req, id) => async (dispatch) => {
 // Get  all rooms - ADMIN
 export const getAdminRooms = () => async (dispatch) => {
   try {
-    dispatch({ ADMIN_ROOMS_REQUEST });
+    dispatch({ type:ADMIN_ROOMS_REQUEST });
 
     const { data } = await axios.get(`/api/admin/rooms`);
 

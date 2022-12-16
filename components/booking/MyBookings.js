@@ -7,9 +7,11 @@ import { toast } from "react-toastify";
 import { clearErrors } from "../../redux/actions/bookingActions";
 
 const MyBookings = () => {
+
   const dispatch = useDispatch();
+
   const { bookings, error } = useSelector((state) => state.bookings);
-  console.log(bookings);
+  
   useEffect(() => {
     if (error) {
       toast.error(error);
