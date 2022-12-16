@@ -95,22 +95,27 @@ export const newReviewReducer = (state = {}, action) => {
 };
 
 export const checkReviewReducer = (
-  state = { reviewAvailable: null },action) => {
+  state = { reviewAvailable: null },
+  action
+) => {
   switch (action.type) {
     case REVIEW_AVAILABILITY_REQUEST:
       return {
         loading: true,
       };
+
     case REVIEW_AVAILABILITY_SUCCESS:
       return {
         loading: false,
         reviewAvailable: action.payload,
       };
+
     case REVIEW_AVAILABILITY_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
+
     case CLEAR_ERRORS:
       return {
         ...state,

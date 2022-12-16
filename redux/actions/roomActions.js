@@ -58,9 +58,7 @@ export const getRoomDetails = (req, id) => async (dispatch) => {
 };
 
 export const newReview = (reviewData) => async (dispatch) => {
-
   try {
-
     dispatch({ type: NEW_REVIEW_REQUEST });
 
     const config = {
@@ -75,7 +73,6 @@ export const newReview = (reviewData) => async (dispatch) => {
       type: NEW_REVIEW_SUCCESS,
       payload: data.success,
     });
-
   } catch (error) {
     dispatch({
       type: NEW_REVIEW_FAIL,
@@ -85,18 +82,17 @@ export const newReview = (reviewData) => async (dispatch) => {
 };
 
 export const checkReviewAvailability = (roomId) => async (dispatch) => {
-
   try {
-
     dispatch({ type: REVIEW_AVAILABILITY_REQUEST });
 
-    const { data } = await axios.get(`/api/reviews/check_review_availability?roomId=${roomId}`);
+    const { data } = await axios.get(
+      `/api/reviews/check_review_availability?roomId=${roomId}`
+    );
 
     dispatch({
       type: REVIEW_AVAILABILITY_SUCCESS,
       payload: data.isReviewAvailable,
     });
-
   } catch (error) {
     dispatch({
       type: REVIEW_AVAILABILITY_FAIL,

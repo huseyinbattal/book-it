@@ -131,21 +131,24 @@ const createRoomReview = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-// Check Review Availability    =>    /api/reviews/check_review_availability
-const checkReviewAvailability = catchAsyncErrors(async (req, res, next) => {
+// Check Review Availability   =>   /api/reviews/check_review_availability
+const checkReviewAvailability = catchAsyncErrors(async (req, res) => {
+
   const { roomId } = req.query;
 
-  const bookings = await Booking.find({ user: req.user._id, room: roomId });
+  const bookings = await Booking.find({ user: req.user._id, room: roomId })
 
   let isReviewAvailable = false;
+  if (bookings.length > 0) isReviewAvailable = true
 
-  if (bookings.length > 0) isReviewAvailable = true;
 
   res.status(200).json({
-    success: true,
-    isReviewAvailable,
-  });
-});
+      success: true,
+      isReviewAvailable
+  })
+
+})
+
 
 export {
   allRooms,

@@ -12,6 +12,6 @@ dbConnect();
 
 handler
     .use(isAuthenticatedUser)
-    .put(checkReviewAvailability);
+    .get(checkReviewAvailability);
     
 export default handler;
