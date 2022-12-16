@@ -68,12 +68,12 @@ export const getAdminRooms = () => async (dispatch) => {
     const { data } = await axios.get(`/api/admin/rooms`);
 
     dispatch({
-      type: ROOM_DETAILS_SUCCESS,
+      type: ADMIN_ROOMS_SUCCESS,
       payload: data.rooms,
     });
   } catch (error) {
     dispatch({
-      type: ROOM_DETAILS_FAIL,
+      type: ADMIN_ROOMS_FAIL,
       payload: error.response.data.message,
     });
   }

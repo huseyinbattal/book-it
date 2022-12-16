@@ -19,10 +19,9 @@ import {
 // All room reducer
 export const allRoomsReducer = (state = { rooms: [] }, action) => {
   switch (action.type) {
-
     case ADMIN_ROOMS_REQUEST:
       return {
-       loading:true,
+        loading: true,
       };
 
     case ALL_ROOMS_SUCCESS:
@@ -32,13 +31,13 @@ export const allRoomsReducer = (state = { rooms: [] }, action) => {
         filteredRoomsCount: action.payload.filteredRoomsCount,
         rooms: action.payload.rooms,
       };
-    
-      case ADMIN_ROOMS_SUCCESS:
-        return {
-          loading: false,
-          rooms: action.payload
-        };
-    
+
+    case ADMIN_ROOMS_SUCCESS:
+      return {
+        loading: false,
+        rooms: action.payload,
+      };
+
     case ALL_ROOMS_FAIL:
     case ADMIN_ROOMS_FAIL:
       return {
