@@ -6,7 +6,6 @@ import Booking from "../models/booking";
 import cloudinary from "cloudinary";
 
 // Get all rooms    =>    /api/rooms
-
 const allRooms = catchAsyncErrors(async (req, res) => {
   const resPerPage = 4;
   const roomsCount = await Room.countDocuments();
@@ -32,6 +31,7 @@ const allRooms = catchAsyncErrors(async (req, res) => {
 
 // Create new room    =>    /api/rooms
 const newRoom = catchAsyncErrors(async (req, res) => {
+  
   const images = req.body.images;
 
   let imagesLinks = [];
