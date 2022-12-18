@@ -5,7 +5,7 @@ import {
   bookingsReducer,
   bookingDetailsReducer
 } from "./bookingReducers";
-import { allRoomsReducer, roomDetailsReducer,newReviewReducer,checkReviewReducer} from "./roomReducers";
+import { allRoomsReducer, roomDetailsReducer,newReviewReducer,checkReviewReducer,newRoomReducer} from "./roomReducers";
 
 import {
   authReducer,
@@ -16,6 +16,7 @@ import {
 
 const reducer = combineReducers({
   allRooms: allRoomsReducer,
+  newRoom:newRoomReducer,
   roomDetails: roomDetailsReducer,
   auth: authReducer,
   user: userReducer,

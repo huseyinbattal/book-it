@@ -10,6 +10,7 @@ const handler = nc({onError});
 dbConnect();
 
 handler.get(allRooms);
+
 handler.post(newRoom);
 
 export default handler;
