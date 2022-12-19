@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { clearErrors, newRoom } from "../../redux/actions/roomActions";
+import { clearErrors, updateRoom ,getRoomDetails} from "../../redux/actions/roomActions";
 import { NEW_ROOM_RESET } from "../../redux/constants/roomConstants";
 
-const NewRoom = () => {
+const UpdateRoom = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
@@ -21,23 +21,53 @@ const NewRoom = () => {
   const [roomCleaning, setRoomCleaning] = useState(false);
 
   const [images, setImages] = useState([]);
+  const [oldImages, setOldImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { loading, error, success } = useSelector((state) => state.newRoom);
+  const { loading, error, isUpdated } = useSelector((state) => state.room);
+  const { loading:roomDetailsLoading, error:roomDetailsError, room } = useSelector((state) => state.roomDetails);
 
-  useEffect(() => {
+    
+    const { id } = router.query;
+
+    useEffect(() => {
+
+        if (room && room._id !== id) {
+            dispatch(getRoomDetails(id))
+        } else {
+            setName(room.name)
+            setPrice(room.pricePerNight)
+            setDescription(room.description)
+            setAddress(room.address)
+            setCategory(room.category)
+            setGuestCapacity(room.guestCapacity)
+            setNumOfBeds(room.numOfBeds)
+            setInternet(room.internet)
+            setBreakfast(room.breakfast)
+            setAirConditioned(room.airConditioned)
+            setPetsAllowed(room.petsAllowed)
+            setRoomCleaning(room.roomCleaning)
+            setOldImages(room.images)
+        }
+          
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
     }
-    if (success) {
+        
+    if (roomDetailsError) {
+        toast.error(roomDetailsError);
+        dispatch(clearErrors());
+    }
+        
+    if (isUpdated) {
       router.push("/admin/rooms");
       dispatch({ type: NEW_ROOM_RESET });
     }
-  }, [dispatch, error, success]);
+  }, [dispatch, error,roomDetailsError, isUpdated]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -287,7 +317,7 @@ const NewRoom = () => {
               className="btn btn-block new-room-btn py-3"
               disabled={loading ? true : false}
             >
-              {loading ? <ButtonLoader /> : "REGISTER"}
+              {loading ? <ButtonLoader /> : "UPDATE"}
             </button>
           </form>
         </div>
@@ -296,4 +326,4 @@ const NewRoom = () => {
   );
 };
 
-export default NewRoom;
+export default UpdateRoom;
