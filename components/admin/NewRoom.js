@@ -216,7 +216,10 @@ const NewRoom = () => {
                 value={airConditioned}
                 onChange={(e) => setAirConditioned(e.target.checked)}
               />
-              <label className="form-check-label" htmlFor="airConditioned_checkbox">
+              <label
+                className="form-check-label"
+                htmlFor="airConditioned_checkbox"
+              >
                 Air Conditioned
               </label>
             </div>
@@ -228,7 +231,10 @@ const NewRoom = () => {
                 value={petsAllowed}
                 onChange={(e) => setPetsAllowed(e.target.checked)}
               />
-              <label className="form-check-label" htmlFor="petsAllowed_checkbox">
+              <label
+                className="form-check-label"
+                htmlFor="petsAllowed_checkbox"
+              >
                 Pets Allowed
               </label>
             </div>
@@ -240,7 +246,10 @@ const NewRoom = () => {
                 value={roomCleaning}
                 onChange={(e) => setRoomCleaning(e.target.checked)}
               />
-              <label className="form-check-label" htmlFor="roomCleaning_checkbox">
+              <label
+                className="form-check-label"
+                htmlFor="roomCleaning_checkbox"
+              >
                 Room Cleaning
               </label>
             </div>
