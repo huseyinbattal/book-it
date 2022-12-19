@@ -11,6 +11,7 @@ import {
   newReviewReducer,
   checkReviewReducer,
   newRoomReducer,
+  roomReducer,
 } from "./roomReducers";
 
 import {
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   allRooms: allRoomsReducer,
   newRoom: newRoomReducer,
   roomDetails: roomDetailsReducer,
+  room:roomReducer,
   auth: authReducer,
   user: userReducer,
   forgotPassword: forgotPasswordReducer,
