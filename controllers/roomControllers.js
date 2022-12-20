@@ -31,14 +31,13 @@ const allRooms = catchAsyncErrors(async (req, res) => {
 
 // Create new room    =>    /api/rooms
 const newRoom = catchAsyncErrors(async (req, res) => {
-  
   const images = req.body.images;
 
   let imagesLinks = [];
 
   for (let i = 0; i < images.length; i++) {
     const result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "bookit/rooms"
+      folder: "bookit/rooms",
     });
 
     imagesLinks.push({
@@ -79,16 +78,19 @@ const updateRoom = catchAsyncErrors(async (req, res, next) => {
   }
 
   if (req.body.images) {
-    
-      // Delete images associated with the room
-    for (let i = 0; i < room.images.length; i++){
-      await cloudinary.v2.uploader.destroy(room.images[i].public_id)
+    // Delete images associated with the room
+    for (let i = 0; i < room.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(room.images[i].public_id);
     }
-    for (let i = 0; i < images.length; i++) {
+
+    let imagesLinks = [];
+    const images = req.body.images;
+
+    for (let i = 0; i < req.body.images.length; i++) {
       const result = await cloudinary.v2.uploader.upload(images[i], {
-        folder: "bookit/rooms"
+        folder: "bookit/rooms",
       });
-  
+
       imagesLinks.push({
         public_id: result.public_id,
         url: result.secure_url,
