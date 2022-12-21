@@ -119,6 +119,11 @@ const deleteRoom = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Room not found with this ID.", 404));
   }
 
+  // Delete images associated with the room
+  for (let i = 0; i < room.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(room.images[i].public_id);
+  }
+
   await room.remove();
   2;
 
