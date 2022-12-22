@@ -100,7 +100,7 @@ export const getAdminRooms = () => async (dispatch) => {
   }
 };
 
-export const newRoom = (id,roomData) => async (dispatch) => {
+export const newRoom = (roomData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_ROOM_REQUEST });
 
@@ -110,7 +110,7 @@ export const newRoom = (id,roomData) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(`/api/rooms`, roomData, config);
+    const { data } = await axios.post("/api/rooms", roomData, config);
 
     dispatch({
       type: NEW_ROOM_SUCCESS,
@@ -154,7 +154,6 @@ export const deleteRoom = (id) => async (dispatch) => {
     dispatch({ type: DELETE_ROOM_REQUEST });
 
     const { data } = await axios.delete(`/api/rooms/${id}`);
-
     dispatch({
       type: DELETE_ROOM_SUCCESS,
       payload: data.success,
