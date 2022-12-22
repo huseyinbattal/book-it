@@ -86,8 +86,9 @@ const webhookCheckout = catchAsyncErrors(async (req, res) => {
         paymentInfo,
         paidAt: Date.now(),
       });
+     
 
-      res.status(200).json({ success: true });
+      res.status(200).json({ success: true});
     }
   } catch (error) {
     console.log("Error in Stripe Checkout Payment =>", error);

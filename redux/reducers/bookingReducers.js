@@ -9,6 +9,9 @@ import {
   MY_BOOKINGS_FAIL,
   BOOKING_DETAILS_SUCCESS,
   BOOKING_DETAILS_FAIL,
+  ADMIN_BOOKINGS_REQUEST,
+  ADMIN_BOOKINGS_SUCCESS,
+  ADMIN_BOOKINGS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/bookingConstants";
 
@@ -78,13 +81,21 @@ export const bookedDatesReducer = (state = { dates: [] }, action) => {
 // Bookings reducer
 export const bookingsReducer = (state = { bookings: [] }, action) => {
   switch (action.type) {
+
+    case ADMIN_BOOKINGS_REQUEST:
+      return {
+        loading: true
+      };
+
     case MY_BOOKINGS_SUCCESS:
+    case ADMIN_BOOKINGS_SUCCESS:
       return {
         loading: false,
         bookings: action.payload,
       };
 
     case MY_BOOKINGS_FAIL:
+      case ADMIN_BOOKINGS_FAIL:
       return {
         loading: false,
         error: action.payload,
