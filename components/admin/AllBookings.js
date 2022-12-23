@@ -7,13 +7,20 @@ import { toast } from "react-toastify";
 import {
   clearErrors,
   getAdminBookings,
+  deleteBooking,
 } from "../../redux/actions/bookingActions";
+import { DELETE_BOOKING_RESET } from "../../redux/constants/bookingConstants";
 import Loader from "../layout/Loader";
+import {useRouter} from "next/router";
 
 const AllBookings = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const { bookings, error, loading } = useSelector((state) => state.bookings);
+  const { isDeleted, error: deleteError } = useSelector(
+    (state) => state.booking
+  );
 
   useEffect(() => {
     dispatch(getAdminBookings());
@@ -22,7 +29,17 @@ const AllBookings = () => {
       toast.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch]);
+
+    if (deleteError) {
+      toast.error(deleteError);
+      dispatch(clearErrors());
+    }
+
+    if (isDeleted) {
+      router.push("/admin/bookings");
+      dispatch({ type: DELETE_BOOKING_RESET });
+    }
+  }, [dispatch, deleteError, isDeleted]);
 
   const setBookings = () => {
     const data = {
@@ -57,7 +74,10 @@ const AllBookings = () => {
               >
                 <i className="fa fa-download"></i>
               </button>
-              <button className="btn btn-danger mx-2">
+              <button
+                className="btn btn-danger mx-2"
+                onClick={() => deleteBookingHandler(booking._id)}
+              >
                 <i className="fa fa-trash"></i>
               </button>
             </>
@@ -66,6 +86,11 @@ const AllBookings = () => {
       });
     return data;
   };
+
+  const deleteBookingHandler = (id) => {
+    dispatch(deleteBooking(id));
+  };
+
   const downloadInvoice = async (booking) => {
     var data = {
       // Customize enables you to provide your own templates
