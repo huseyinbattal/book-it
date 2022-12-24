@@ -95,7 +95,7 @@ const MyBookings = () => {
         // Invoice number
         number: `${booking._id}`,
         // Invoice data
-        date: `${new Date(Date.now()).toLocaleString("tr-TR")}`,
+        date: `${new Date(Date.now()).toLocaleString("en-US")}`,
         // Invoice due date
         "due-date": "31-12-2021",
       },
