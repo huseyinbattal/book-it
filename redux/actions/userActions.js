@@ -16,6 +16,9 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  ADMIN_USERS_REQUEST,
+  ADMIN_USERS_SUCCESS,
+  ADMIN_USERS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/userConstants";
 
@@ -109,7 +112,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     const { data } = await axios.post("/api/password/forgot", email, config);
     dispatch({
       type: FORGOT_PASSWORD_SUCCESS,
-      payload: data.message
+      payload: data.message,
     });
   } catch (error) {
     dispatch({
@@ -119,9 +122,8 @@ export const forgotPassword = (email) => async (dispatch) => {
   }
 };
 
-
 // Reset password action
-export const resetPassword = (token,passwords) => async (dispatch) => {
+export const resetPassword = (token, passwords) => async (dispatch) => {
   try {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
@@ -133,10 +135,14 @@ export const resetPassword = (token,passwords) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.put(`/api/password/reset/${token}`, passwords, config);
+    const { data } = await axios.put(
+      `/api/password/reset/${token}`,
+      passwords,
+      config
+    );
     dispatch({
       type: RESET_PASSWORD_SUCCESS,
-      payload: data.success
+      payload: data.success,
     });
   } catch (error) {
     dispatch({
@@ -145,10 +151,30 @@ export const resetPassword = (token,passwords) => async (dispatch) => {
     });
   }
 };
+
+export const getAdminUsers = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADMIN_USERS_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/admin/users`);
+    console.log("DATA===>", data);
+    dispatch({
+      type: ADMIN_USERS_SUCCESS,
+      payload: data.users,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_USERS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 //Clear Errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({
     type: CLEAR_ERRORS,
   });
 };
-

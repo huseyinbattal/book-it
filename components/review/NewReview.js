@@ -14,7 +14,7 @@ import Modal from "react-bootstrap/Modal";
 const NewReview = () => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  console.log("Rating=>", rating);
+ // console.log("Rating=>", rating);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

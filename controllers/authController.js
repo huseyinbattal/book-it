@@ -169,10 +169,21 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Get all users    =>    /api/admin/users
+const allAdminUsers = catchAsyncErrors(async (req, res) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
 export {
   registerUser,
   currentUserProfile,
   updateProfile,
   forgotPassword,
   resetPassword,
+  allAdminUsers,
 };
