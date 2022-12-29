@@ -179,6 +179,39 @@ const allAdminUsers = catchAsyncErrors(async (req, res) => {
   });
 });
 
+// Get user details    =>    /api/admin/users/:id
+const getUserDetails = catchAsyncErrors(async (req, res) => {
+  const user = await User.findById(req.query.id);
+
+  if (!user) {
+    return next(new ErrorHandler("User not found with this ID", 400));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+// Update user details    =>    /api/admin/users/:id
+const updateUser = catchAsyncErrors(async (req, res) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  const user = await User.findByIdAndUpdate(req.query.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
 export {
   registerUser,
   currentUserProfile,
@@ -186,4 +219,6 @@ export {
   forgotPassword,
   resetPassword,
   allAdminUsers,
+  getUserDetails,
+  updateUser,
 };

@@ -121,7 +121,6 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
-
   font-weight: 700;
 }
 
@@ -486,7 +485,7 @@ input::placeholder {
 
 #title_404 {
   color: #e61e4d;
-  font-size: 7rem;
+  font-size: 4rem;
 }
 
 #description_404 {
