@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getRoomReviews, clearErrors } from "../../redux/actions/roomActions";
-// import { DELETE_USER_RESET } from "../../redux/constants/userConstants";
+import { getRoomReviews,deleteReview, clearErrors } from "../../redux/actions/roomActions";
+import { DELETE_REVIEW_RESET } from "../../redux/constants/roomConstants";
 
 const RoomReviews = () => {
   const [roomId, setRoomId] = useState("");
@@ -13,8 +13,8 @@ const RoomReviews = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { loading, error, reviews } = useSelector(state => state.roomReviews)
-  //   const { error: deleteError, isDeleted } = useSelector((state) => state.user);
+  const { loading, error, reviews } = useSelector(state => state.roomReviews);
+  const { error: deleteError, isDeleted } = useSelector((state) => state.review);
 
   useEffect(() => {
     if (error) {
@@ -26,16 +26,17 @@ const RoomReviews = () => {
       dispatch(getRoomReviews(roomId));
     }
 
-    // if (deleteError) {
-    //   toast.error(deleteError);
-    //   dispatch(clearErrors());
-    // }
+    if (deleteError) {
+      toast.error(deleteError);
+      dispatch(clearErrors());
+    }
 
-    // if (isDeleted) {
-    //   router.push("/admin/users");
-    //   dispatch({ type: DELETE_USER_RESET });
-    // }
-  }, [dispatch, error,roomId]);
+    if (isDeleted) {
+      toast.success("Review is deleted.")
+      dispatch({ type: DELETE_REVIEW_RESET });
+      setRoomId("")
+    }
+  }, [dispatch, error, roomId, deleteError, isDeleted]);
 
   const setReviews = () => {
     const data = {
@@ -57,7 +58,7 @@ const RoomReviews = () => {
           comment: review.comment,
           user: review.name,
           actions: (
-            <button className="btn btn-danger mx-2">
+            <button className="btn btn-danger mx-2" onClick={()=>deleteReviewHandler(review._id)}>
               <i className="fa fa-trash"></i>
             </button>
           ),
@@ -66,9 +67,9 @@ const RoomReviews = () => {
     return data;
   };
 
-  //   const deleteUserHandler = (id) => {
-  //     dispatch(deleteUser(id));
-  //   };
+    const deleteReviewHandler = (id) => {
+      dispatch(deleteReview(id,roomId));
+    };
 
   return (
     <div className="container container-fluid">

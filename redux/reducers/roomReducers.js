@@ -28,6 +28,10 @@ import {
   GET_REVIEWS_REQUEST,
   GET_REVIEWS_SUCCESS,
   GET_REVIEWS_FAIL,
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
+  DELETE_REVIEW_RESET,
+  DELETE_REVIEW_FAIL,
   CLEAR_ERRORS,
 } from "../constants/roomConstants";
 
@@ -252,6 +256,43 @@ export const roomReviewsReducer = (state = { reviews: [] }, action) => {
         error: action.payload,
       };
 
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+
+export const reviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_REVIEW_REQUEST:
+      return {
+        loading: true,
+      };
+    
+    case DELETE_REVIEW_SUCCESS:
+      return {
+        loading: false,
+        isDeleted: action.payload,
+      };
+    
+    case DELETE_REVIEW_RESET:
+      return {
+        loading: false,
+        isDeleted: false,
+      };
+    
+    case DELETE_REVIEW_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    
     case CLEAR_ERRORS:
       return {
         ...state,
