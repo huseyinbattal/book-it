@@ -24,6 +24,9 @@ import {
   DELETE_ROOM_REQUEST,
   DELETE_ROOM_SUCCESS,
   DELETE_ROOM_FAIL,
+  GET_REVIEWS_REQUEST,
+  GET_REVIEWS_SUCCESS,
+  GET_REVIEWS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/roomConstants";
 
@@ -55,15 +58,14 @@ export const getRooms =
 // Get room details
 export const getRoomDetails = (req, id) => async (dispatch) => {
   try {
-
     const { origin } = absoluteUrl(req);
 
     let url;
 
     if (req) {
-      url=`${origin}/api/rooms/${id}`
+      url = `${origin}/api/rooms/${id}`;
     } else {
-      url=`/api/rooms/${id}`
+      url = `/api/rooms/${id}`;
     }
 
     const { data } = await axios.get(url);
@@ -83,7 +85,7 @@ export const getRoomDetails = (req, id) => async (dispatch) => {
 // Get  all rooms - ADMIN
 export const getAdminRooms = () => async (dispatch) => {
   try {
-    dispatch({ type:ADMIN_ROOMS_REQUEST });
+    dispatch({ type: ADMIN_ROOMS_REQUEST });
 
     const { data } = await axios.get(`/api/admin/rooms`);
 
@@ -91,7 +93,6 @@ export const getAdminRooms = () => async (dispatch) => {
       type: ADMIN_ROOMS_SUCCESS,
       payload: data.rooms,
     });
-    
   } catch (error) {
     dispatch({
       type: ADMIN_ROOMS_FAIL,
@@ -124,7 +125,7 @@ export const newRoom = (roomData) => async (dispatch) => {
   }
 };
 
-export const updateRoom = (id,roomData) => async (dispatch) => {
+export const updateRoom = (id, roomData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_ROOM_REQUEST });
 
@@ -138,10 +139,10 @@ export const updateRoom = (id,roomData) => async (dispatch) => {
 
     dispatch({
       type: UPDATE_ROOM_SUCCESS,
-      payload: data.success
+      payload: data.success,
     });
   } catch (error) {
-    console.log("ERROR===>",error)
+    console.log("ERROR===>", error);
     dispatch({
       type: UPDATE_ROOM_FAIL,
       payload: error.response.data.message,
@@ -205,6 +206,24 @@ export const checkReviewAvailability = (roomId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REVIEW_AVAILABILITY_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const getRoomReviews = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_REVIEWS_REQUEST });
+
+    const { data } = await axios.get(`/api/reviews/?id=${id}`);
+
+    dispatch({
+      type: GET_REVIEWS_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_REVIEWS_FAIL,
       payload: error.response.data.message,
     });
   }
