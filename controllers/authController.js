@@ -180,7 +180,7 @@ const allAdminUsers = catchAsyncErrors(async (req, res) => {
 });
 
 // Get user details    =>    /api/admin/users/:id
-const getUserDetails = catchAsyncErrors(async (req, res,next) => {
+const getUserDetails = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.query.id);
 
   if (!user) {
@@ -213,7 +213,7 @@ const updateUser = catchAsyncErrors(async (req, res) => {
 });
 
 // Delete user    =>    /api/admin/users/:id
-const deleteUser = catchAsyncErrors(async (req, res,next) => {
+const deleteUser = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.query.id);
 
   if (!user) {
