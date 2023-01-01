@@ -1,4 +1,3 @@
-import { Loader } from "../layout/Loader";
 import ButtonLoader from "../layout/ButtonLoader";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -6,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {clearErrors, updateRoom,getRoomDetails,} from "../../redux/actions/roomActions";
 import {UPDATE_ROOM_RESET} from "../../redux/constants/roomConstants";
+import Loader from "../layout/Loader";
 
 const UpdateRoom = () => {
   const [name, setName] = useState("");
