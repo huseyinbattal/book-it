@@ -20,7 +20,7 @@ module.exports = {
     SMTP_FROM_NAME: "BookIT",
     SMTP_FROM_EMAIL: "noreply@bookit.com",
 
-    NEXTAUTH_URL:"https://book-it-six.vercel.app",
+    NEXTAUTH_URL:"https://book-it-lyart.vercel.app/",
   },
 
   images: {
