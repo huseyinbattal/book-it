@@ -2,7 +2,7 @@ const Room = require("../models/room");
 const rooms = require("../data/rooms.json");
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/bookit", {
+mongoose.connect("mongodb+srv://huseyinbattal:Re5nzhh5urcsUMzc@bookit.2gpfq2g.mongodb.net/?retryWrites=true&w=majority", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   //useFindAndModify: false,
