@@ -22,8 +22,6 @@ const Login = () => {
 
     setLoading(false);
 
-    console.log(result);
-
     if (result.error) {
       toast.error(result.error);
     } else {
