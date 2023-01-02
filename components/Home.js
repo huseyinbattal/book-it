@@ -8,6 +8,7 @@ import { clearErrors } from "../redux/actions/roomActions";
 import RoomItem from "./room/RoomItem";
 
 const Home = () => {
+
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -22,7 +23,7 @@ const Home = () => {
       toast.error(error);
       dispatch(clearErrors());
     }
-  }, []);
+  }, [dispatch,error]);
 
 
   let queryParams;
@@ -51,6 +52,7 @@ const Home = () => {
 
   return (
     <>
+      
       <section id="rooms" className="container mt-5">
         <h2 className="mb-3 ml-2 stays-heading">{location? `Rooms in ${location}`: "All Rooms"}</h2>
 
