@@ -1,20 +1,20 @@
-import nc from "next-connect";
-import dbConnect from "../../config/dbConnect";
+import nc from 'next-connect'
+import dbConnect from '../../config/dbConnect'
 
-import { webhookCheckout } from "../../controllers/paymentController";
+import { webhookCheckout } from '../../controllers/paymentControllers'
 
-import onError from "../../middlewares/errors"
+import onError from '../../middlewares/errors'
 
-const handler = nc({onError});
+const handler = nc({ onError });
 
 dbConnect();
 
 export const config = {
     api: {
-        bodyParser:false
+        bodyParser: false,
     }
 }
 
-handler.post(webhookCheckout);
+handler.post(webhookCheckout)
 
 export default handler;
