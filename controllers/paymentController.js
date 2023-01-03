@@ -8,7 +8,6 @@ import getRawBody from "raw-body";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // Generate stripe checkout session    =>    /api/checkout_session/:roomId
-
 const stripeCheckoutSession = catchAsyncErrors(async (req, res) => {
   // Get room details
   const room = await Room.findById(req.query.roomId);
@@ -38,6 +37,7 @@ const stripeCheckoutSession = catchAsyncErrors(async (req, res) => {
             images: [`${room.images[0].url}`],
           },
         },
+       
         quantity: 1,
       },
     ],
