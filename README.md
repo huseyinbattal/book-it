@@ -19,22 +19,18 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Technologies
+#### React.JS
+#### Next.JS
+#### MongoDB
+
 ## Features
-
 #### Redux for State Management
-
 #### Pagination, Search
-
 #### Authentication with next-auth
-
 #### Protected Routes & Handle User
-
 #### Handle Room Bookings
-
 #### Stripe for Payments
-
 #### Handle Room Reviews
-
 #### Admin Routes
-
 #### Deploying on Vercel
