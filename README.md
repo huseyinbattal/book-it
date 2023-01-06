@@ -19,6 +19,8 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+Click here to see the [Live Demo](https://book-it-six.vercel.app/)
+
 # Technologies
 #### React.JS
 #### Next.JS
