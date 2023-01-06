@@ -19,13 +19,15 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Features
+
 #### Redux for State Management
 
 #### Pagination, Search
 
 #### Authentication with next-auth
 
-#### Protected Routes & Handle User
+#### Protected Routes & Handle User
 
 #### Handle Room Bookings
 
