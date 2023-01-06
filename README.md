@@ -24,7 +24,7 @@ Click here to see the [Live Demo](https://book-it-six.vercel.app/)
 # Technologies
 #### React.JS
 #### Next.JS
-#### MongoDB
+#### MongoDB Atlas
 
 # Features
 #### Redux for State Management
