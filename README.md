@@ -1,6 +1,6 @@
 # Book IT
 
-# Screenshot
+## Screenshot
 
 <img width="1276" alt="book-it" src="https://user-images.githubusercontent.com/95706081/210949559-8a664d17-30c0-429a-8bff-f029db56ff5e.png">
 
